@@ -1,0 +1,16 @@
+{
+  "name": "Paac",
+  "short_name": "Paac",
+  "description": "Qu'est ce qu'on mange au R.U. ?",
+  "icons": [
+    {
+      "src": "paac.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#f59e0b",
+  "background_color": "#171717"
+}
