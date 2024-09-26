@@ -1,87 +1,123 @@
-import { ModeToggle } from "@/components/mode-toggle";
-import { Card } from "@/components/ui/card";
+import "@/assets/css/global.css";
+import PlaceSelector from "@/components/place-selector";
+import { useStorage } from "@/components/providers/storage-provider";
+import SettingsAlert from "@/components/settings";
+import TypeIcon from "@/components/type-icon";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Category, Dish, Menu } from "@/models/menu";
 import { useEffect, useState } from "react";
 
-type Menu = {
-  date: string;
-  title: string;
-  menu: Food[];
-};
-
-type Food = {
-  category: string;
-  choices: string[];
-};
-
 function App() {
-  const [menu, setMenu] = useState<Menu>({} as Menu);
+  const { place } = useStorage();
+  const [menu, setMenu] = useState<Menu>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getMenu = async () => {
-      const response = await fetch("/api/");
+    if (place) {
+      async function getMenu() {
+        const date = new Date();
+        // const response = await fetch(`/api/menus/${place?.dataset}/${place?.id}?date=${formatDate(date)}`);
+        const response = await fetch(
+          `http://127.0.0.1:8080/menus/${place?.dataset}/${
+            place?.id
+          }?date=${formatDate(date)}`
+        );
+        const data = await response.json();
+        setMenu(data as Menu);
 
-      const html = await response.text();
-      const parsedHtml = new DOMParser().parseFromString(html, "text/html");
+        setLoading(false);
+      }
 
-      const date = parsedHtml.querySelector(".menu_date_title");
-      const mealTitle = parsedHtml.querySelector(".meal_title");
-      const mealFoodies = parsedHtml.querySelector(".meal_foodies");
+      getMenu();
+    } else {
+      setMenu({} as Menu);
+    }
+  }, [place]);
 
-      const foods = [].slice.call(
-        mealFoodies?.children || ([] as HTMLElement[])
-      );
+  function formatDate(date: Date) {
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1);
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
 
-      setMenu({
-        date: date?.textContent || "",
-        title: mealTitle?.textContent || "",
-        menu: foods
-          .map((food: HTMLElement) => {
-            const choices = [].slice.call(
-              food.children[0].children || ([] as HTMLElement[])
-            );
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
-            return {
-              category: food.innerHTML?.split("<")[0],
-              choices: choices.map((choice: HTMLElement) => choice.textContent),
-            };
-          })
-          .filter(
-            (food) =>
-              food.choices.length > 0 &&
-              food.choices[0] !== "menu non communiqué"
-          ) as Food[],
-      });
-    };
-
-    getMenu();
-  }, []);
+    return [year, month, day].join("-");
+  }
 
   return (
-    <div className="p-5 flex flex-col gap-5 items-center">
-      <div className="flex justify-between w-max-96 w-full">
-        <h1 className="text-primary text-3xl font-bold italic">PAAC</h1>
-        <ModeToggle />
-      </div>
-      <h1 className="text-2xl font-bold capitalize">
-        {menu.date?.toLowerCase().replace("menu du", "").trim()}
-      </h1>
-      <Card className="outline max-w-96 w-full mt-5 p-5 flex flex-col gap-5">
-        <h1 className="text-primary text-2xl font-bold text-center">
-          {menu.title}
-        </h1>
-        {menu?.menu?.map((food) => (
-          <div key={food.category}>
-            <h1 className="text-primary text-xl font-medium underline">
-              {food.category}
+    <div>
+      <header>
+        <div className="h-8 flex px-2 items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <img className="size-6" src="/paac.svg" alt="PAAC logo" />
+            <h1 className="text-xl leading-none font-black italic text-primary">
+              PAAC
             </h1>
-            <ul className="flex flex-col items-start">
-              {food.choices.map((choice) => (
-                <li key={choice}>{choice}</li>
-              ))}
-            </ul>
           </div>
-        ))}
-      </Card>
+          <div>
+            <p className="text-sm">@Tonaxis</p>
+          </div>
+        </div>
+        <Separator />
+        <div className="px-4 py-4">
+          <div className="text-lg font-medium">
+            {place ? (
+              <div className="flex gap-2 items-center">
+                <TypeIcon name={place.type} /> {place.title}
+              </div>
+            ) : (
+              "Lieu de restauration non sélectionné"
+            )}
+          </div>
+          <p className="text-sm">
+            {menu ? menu.date : "Aucun menu trouvé à cette date"}
+          </p>
+        </div>
+        <Separator />
+      </header>
+      <div className="p-2 flex justify-end gap-2">
+        <PlaceSelector />
+        <SettingsAlert />
+      </div>
+      <main className="p-2 flex items-center justify-center">
+        {loading ? (
+          <Skeleton className="h-96 w-96 rounded-xl bg-foreground/10" />
+        ) : (
+          <div className="border-2 border-foreground rounded p-5">
+            {menu?.date ? (
+              <>
+                <h1 className="text-center capitalize font-bold text-xl text-primary">
+                  {menu?.moment}
+                </h1>
+                <Separator className="mt-2" />
+                <div>
+                  {menu?.categories?.map((category: Category) => (
+                    <div key={category.name} className="mt-4">
+                      <div>
+                        <h2 className="uppercase font-medium text-primary underline">
+                          {category.name}
+                        </h2>
+                      </div>
+                      <ul>
+                        {category.dishes.map((dish: Dish) => (
+                          <li key={dish.name} className="text-sm">
+                            {dish.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p>Aucun menu trouvé pour le {formatDate(new Date())}</p>
+            )}
+          </div>
+        )}
+      </main>
     </div>
   );
 }

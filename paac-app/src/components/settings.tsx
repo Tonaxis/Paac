@@ -1,0 +1,64 @@
+import { ModeToggle } from "@/components/mode-toggle";
+import { useStorage } from "@/components/providers/storage-provider";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+
+import { Settings, X } from "lucide-react";
+
+export default function SettingsAlert() {
+  const { favorites, setFavorites } = useStorage();
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger>
+        <Settings />
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle className="flex justify-between">
+            <h1>Parammètres</h1>
+            <AlertDialogCancel className="border-none">
+              <X />
+            </AlertDialogCancel>
+          </AlertDialogTitle>
+        </AlertDialogHeader>
+        <AlertDialogDescription></AlertDialogDescription>
+        <div className="divide-y-2">
+          <div className="flex justify-between py-2">
+            <div>
+              <h3 className="font-medium">Thème :</h3>
+              <p className="text-sm">L'apparence de l'application</p>
+            </div>
+            <div className="flex items-center">
+              <ModeToggle />
+            </div>
+          </div>
+
+          <div className="flex justify-between py-2">
+            <div>
+              <h3 className="font-medium">Vider les favoris :</h3>
+              <p className="text-sm">Supprimer tous les favoris</p>
+            </div>
+            <div className="flex items-center">
+              <Button
+                variant="destructive"
+                onClick={() => setFavorites([])}
+                disabled={!favorites?.length}
+              >
+                Vider
+              </Button>
+            </div>
+          </div>
+        </div>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
