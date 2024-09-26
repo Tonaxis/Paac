@@ -1,0 +1,40 @@
+# Ignore Node.js files for the frontend app
+paac-app/node_modules
+paac-app/.npm
+paac-app/.npmrc
+paac-app/.cache
+paac-app/dist
+paac-app/build
+paac-app/logs
+paac-app/*.log
+paac-app/yarn-error.log
+paac-app/package-lock.json
+paac-app/.env
+paac-app/.env.local
+paac-app/.env.*.local
+
+# Ignore unnecessary Go files
+paac-api/bin
+paac-api/pkg
+paac-api/.cache
+paac-api/.env
+paac-api/.env.*
+paac-api/*.log
+
+# Ignore system and IDE files
+*.DS_Store
+*.swp
+*.swo
+*.tmp
+*.bak
+*.backup
+*.vscode
+.idea/
+
+# Ignore version control files
+.git
+.gitignore
+
+# Ignore local Docker files
+docker-compose.yml
+Dockerfile
