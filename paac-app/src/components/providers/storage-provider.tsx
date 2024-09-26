@@ -32,7 +32,7 @@ export function StorageProvider({ children, ...props }: StorageProviderProps) {
   const [place, setPlace] = useState<Restaurant | null>(
     () =>
       JSON.parse(
-        localStorage.getItem("paac-selected-place") || ""
+        localStorage.getItem("paac-selected-place") || "{}"
       ) as Restaurant | null
   );
   const [favorites, setFavorites] = useState<string[]>(
