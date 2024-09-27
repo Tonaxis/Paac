@@ -1,7 +1,7 @@
 import "@/assets/css/global.css";
 import PlaceSelector from "@/components/place-selector";
 import { useStorage } from "@/components/providers/storage-provider";
-import SettingsAlert from "@/components/settings";
+import SettingsDialog from "@/components/settings";
 import TypeIcon from "@/components/type-icon";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -83,7 +83,7 @@ function App() {
       </header>
       <div className="p-2 flex justify-end gap-2">
         <PlaceSelector />
-        <SettingsAlert />
+        <SettingsDialog />
       </div>
       <main className="p-2 flex items-center justify-center">
         {loading ? (

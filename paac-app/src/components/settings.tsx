@@ -1,36 +1,32 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { useStorage } from "@/components/providers/storage-provider";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
-import { Settings, X } from "lucide-react";
+import { Settings } from "lucide-react";
 
-export default function SettingsAlert() {
+export default function SettingsDialog() {
   const { favorites, setFavorites } = useStorage();
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>
+    <Dialog>
+      <DialogTrigger>
         <Settings />
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="flex justify-between">
-            <h1>Parammètres</h1>
-            <AlertDialogCancel className="border-none">
-              <X />
-            </AlertDialogCancel>
-          </AlertDialogTitle>
-        </AlertDialogHeader>
-        <AlertDialogDescription></AlertDialogDescription>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
+            <p>Parammètres</p>
+          </DialogTitle>
+        </DialogHeader>
+        <DialogDescription></DialogDescription>
         <div className="divide-y-2">
           <div className="flex justify-between py-2">
             <div>
@@ -58,7 +54,7 @@ export default function SettingsAlert() {
             </div>
           </div>
         </div>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   );
 }
