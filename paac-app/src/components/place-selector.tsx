@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/collapsible";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -18,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import Restaurant from "@/models/restaurant";
-import { ChevronsUpDown, Store, X } from "lucide-react";
+import { ChevronsUpDown, Store } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type RestaurantZoneGroup = {
@@ -90,11 +89,8 @@ export default function PlaceSelector() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="flex justify-between">
+          <DialogTitle>
             <p>Sélectionnez votre lieu de restauration</p>
-            <DialogClose className="border-none">
-              <X />
-            </DialogClose>
           </DialogTitle>
         </DialogHeader>
         <DialogDescription></DialogDescription>
