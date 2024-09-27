@@ -14,12 +14,14 @@ export function MenuCard() {
     if (place) {
       async function getMenu() {
         const date = new Date();
-        // const response = await fetch(`/api/menus/${place?.dataset}/${place?.id}?date=${formatDate(date)}`);
         const response = await fetch(
-          `http://127.0.0.1:8080/menus/${place?.dataset}/${
-            place?.id
-          }?date=${formatDate(date)}`
+          `/api/menus/${place?.dataset}/${place?.id}?date=${formatDate(date)}`
         );
+        // const response = await fetch(
+        //   `http://127.0.0.1:8080/menus/${place?.dataset}/${
+        //     place?.id
+        //   }?date=${formatDate(date)}`
+        // );
         const data = await response.json();
         setMenu(data as Menu);
 

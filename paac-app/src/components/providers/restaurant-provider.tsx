@@ -28,8 +28,8 @@ export function RestaurantProvider({
 
   useEffect(() => {
     const getRestaurants = async () => {
-      // const response = await fetch("/api/restaurants/");
-      const response = await fetch("http://127.0.0.1:8080/restaurants");
+      const response = await fetch("/api/restaurants/");
+      // const response = await fetch("http://127.0.0.1:8080/restaurants");
       const data = (await response.json()) as Restaurant[];
 
       setRestaurants(data);
