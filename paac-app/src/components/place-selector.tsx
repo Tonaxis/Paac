@@ -2,19 +2,19 @@ import PlaceSelectorElement from "@/components/place-selector-element";
 import { useRestaurant } from "@/components/providers/restaurant-provider";
 import { useStorage } from "@/components/providers/storage-provider";
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
 import Restaurant from "@/models/restaurant";
@@ -84,20 +84,20 @@ export default function PlaceSelector() {
   }, [filteredRestaurants]);
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>
+    <Dialog>
+      <DialogTrigger>
         <Store />
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="flex justify-between">
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="flex justify-between">
             <p>Sélectionnez votre lieu de restauration</p>
-            <AlertDialogCancel className="border-none">
+            <DialogClose className="border-none">
               <X />
-            </AlertDialogCancel>
-          </AlertDialogTitle>
-        </AlertDialogHeader>
-        <AlertDialogDescription></AlertDialogDescription>
+            </DialogClose>
+          </DialogTitle>
+        </DialogHeader>
+        <DialogDescription></DialogDescription>
         <Input
           type="text"
           placeholder="Recherche..."
@@ -144,7 +144,7 @@ export default function PlaceSelector() {
             </Collapsible>
           ))}
         </div>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   );
 }
