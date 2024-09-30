@@ -25,9 +25,6 @@ RUN apk add --no-cache nginx
 COPY --from=frontend-builder /app/paac-app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf  
 
-# Exposer le port 8080 pour l'API
-EXPOSE 8080
-
 # Exposer le port 80 pour le serveur Nginx
 EXPOSE 80
 

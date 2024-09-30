@@ -1,0 +1,30 @@
+{
+  "language_code": "fr-FR",
+
+  "selected_places": "lieux sélectionnés",
+
+  "no_menu_found": "Aucun menu trouvé",
+
+  "settings": "Paramètres",
+
+  "theme": "Thème",
+  "theme_desc": "L'apparence de l'application",
+  "light": "Clair",
+  "dark": "Sombre",
+  "system": "Système",
+
+  "clear_favorites": "Vider les favoris",
+  "clear_favorites_desc": "Supprimer tous les favoris",
+  "clear": "Vider",
+
+  "remove_selected_places": "Supprimer la selection",
+  "remove_selected_places_desc": "Retirer tous les lieux sélectionnés",
+  "remove": "Supprimer",
+
+  "language": "Langue",
+  "language_desc": "Changer la langue de l'application (pas des menus)",
+
+  "select_your_places": "Sélectionner vos lieux de restaurations",
+  "search": "Rechercher...",
+  "favorites": "Favoris"
+}

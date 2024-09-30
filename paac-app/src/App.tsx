@@ -1,8 +1,8 @@
 import "@/assets/css/global.css";
-import { MenuCard } from "@/components/menu-card";
-import PlaceSelector from "@/components/place-selector";
+import { MenuCard } from "@/components/menu-card/menu-card";
+import PlaceSelector from "@/components/place-selector/place-selector";
 import { useStorage } from "@/components/providers/storage-provider";
-import SettingsDialog from "@/components/settings";
+import SettingsDialog from "@/components/settings/settings";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -15,31 +15,13 @@ import {
 } from "@hello-pangea/dnd";
 import { Pencil, PencilOff } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { version } from "../package.json";
 
 function App() {
+  const { t } = useTranslation();
   const { places, setPlaces } = useStorage();
   const [dragging, setDragging] = useState(false);
-  // const [menu, setMenu] = useState<Menu>();
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   if (place) {
-  //     async function getMenu() {
-  //       if (place) {
-  //         const data = await fetchMenu(place.dataset, place.id);
-  //         setMenu(data as Menu);
-
-  //         setLoading(false);
-  //       }
-  //     }
-
-  //     getMenu();
-  //   } else {
-  //     setMenu({} as Menu);
-  //     setLoading(false);
-  //   }
-  // }, [place]);
 
   function onDragEnd(result: DropResult) {
     if (!result.destination) {
@@ -71,7 +53,7 @@ function App() {
         <Separator />
         <div className="px-4 py-4">
           <div className="text-lg font-medium">
-            {places.length} lieux sélectionnés
+            {places.length} {t("selected_places")}
           </div>
           <p className="text-sm capitalize">
             {new Intl.DateTimeFormat("fr-FR", {

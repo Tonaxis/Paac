@@ -1,4 +1,4 @@
-import PlaceSelectorElement from "@/components/place-selector-element";
+import PlaceSelectorElement from "@/components/place-selector/place-selector-element";
 import { useRestaurant } from "@/components/providers/restaurant-provider";
 import { useStorage } from "@/components/providers/storage-provider";
 import {
@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import Restaurant from "@/models/restaurant";
 import { ChevronsUpDown, Store } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type RestaurantZoneGroup = {
   zone: string;
@@ -26,6 +27,7 @@ type RestaurantZoneGroup = {
 };
 
 export default function PlaceSelector() {
+  const { t } = useTranslation();
   const { restaurants } = useRestaurant();
   const { favorites } = useStorage();
   const [zones, setZones] = useState<RestaurantZoneGroup[]>(
@@ -90,13 +92,13 @@ export default function PlaceSelector() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <p>Sélectionnez votre lieu de restauration</p>
+            <p>{t("select_your_places")}</p>
           </DialogTitle>
         </DialogHeader>
         <DialogDescription></DialogDescription>
         <Input
           type="text"
-          placeholder="Recherche..."
+          placeholder={t("search")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
@@ -104,7 +106,9 @@ export default function PlaceSelector() {
           {favorites.length > 0 && (
             <Collapsible className="w-full">
               <CollapsibleTrigger className="w-full flex items-center justify-between space-x-4 px-4 py-2">
-                <h4 className="capitalize font-medium text-left">Favoris</h4>
+                <h4 className="capitalize font-medium text-left">
+                  {t("favorites")}
+                </h4>
                 <ChevronsUpDown />
               </CollapsibleTrigger>
               <CollapsibleContent className="pb-2">

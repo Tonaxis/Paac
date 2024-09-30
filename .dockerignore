@@ -33,6 +33,7 @@ paac-api/*.log
 
 # Ignore version control files
 .git
+.github
 .gitignore
 
 # Ignore local Docker files

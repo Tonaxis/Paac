@@ -39,10 +39,6 @@ export default function PlaceSelectorElement({
     <div
       className={cn(
         "px-8 py-1 flex items-center cursor-pointer transition-colors rounded"
-        // places.find((p: Restaurant) => p.id == restaurant.id) &&
-        //   "bg-primary text-primary-foreground",
-        // !places.find((p: Restaurant) => p.id == restaurant.id) &&
-        //   "hover:bg-primary/20"
       )}
     >
       <div className="relative w-full" onClick={() => togglePlace(restaurant)}>

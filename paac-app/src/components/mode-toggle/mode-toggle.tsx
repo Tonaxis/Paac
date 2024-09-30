@@ -7,8 +7,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Monitor, Moon, Sun } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function ModeToggle() {
+  const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
 
   return (
@@ -24,7 +26,7 @@ export function ModeToggle() {
           value="light"
         >
           <div className="flex gap-2">
-            <Sun /> <p>Light</p>
+            <Sun /> <p>{t("light")}</p>
           </div>
         </SelectItem>
         <SelectItem
@@ -34,7 +36,7 @@ export function ModeToggle() {
           value="dark"
         >
           <div className="flex gap-2">
-            <Moon /> <p>Dark</p>
+            <Moon /> <p>{t("dark")}</p>
           </div>
         </SelectItem>
         <SelectItem
@@ -44,7 +46,7 @@ export function ModeToggle() {
           value="system"
         >
           <div className="flex gap-2">
-            <Monitor /> <p>System</p>
+            <Monitor /> <p>{t("system")}</p>
           </div>
         </SelectItem>
       </SelectContent>

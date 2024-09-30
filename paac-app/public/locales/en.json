@@ -1,0 +1,30 @@
+{
+  "language_code": "en-US",
+
+  "selected_places": "selected places",
+
+  "no_menu_found": "No menu found",
+
+  "settings": "Settings",
+
+  "theme": "Theme",
+  "theme_desc": "Application theme",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System",
+
+  "clear_favorites": "Clear favorites",
+  "clear_favorites_desc": "Remove all favorites",
+  "clear": "Clear",
+
+  "remove_selected_places": "Remove selected places",
+  "remove_selected_places_desc": "Remove all selected places",
+  "remove": "Remove",
+
+  "language": "Language",
+  "language_desc": "Change application language (not menus)",
+
+  "select_your_places": "Select your favorite places",
+  "search": "Search...",
+  "favorites": "Favorites"
+}

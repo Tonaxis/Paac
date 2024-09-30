@@ -1,5 +1,5 @@
 import "@/assets/css/global.css";
-import TypeIcon from "@/components/type-icon";
+import TypeIcon from "@/components/type-icon/type-icon";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Category, Dish, Menu } from "@/models/menu";
@@ -7,6 +7,7 @@ import Restaurant from "@/models/restaurant";
 import { fetchMenu } from "@/services/api";
 import { GripVertical } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type MenuCardProps = {
   restaurant: Restaurant;
@@ -14,6 +15,7 @@ type MenuCardProps = {
 };
 
 export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
+  const { t } = useTranslation();
   const [menu, setMenu] = useState<Menu>();
   const [loading, setLoading] = useState(true);
 
@@ -65,8 +67,8 @@ export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
                     </div>
                     <ul>
                       {category.dishes.map((dish: Dish) => (
-                        <li key={dish.name} className="text-sm">
-                          {dish.name}
+                        <li key={dish.name} className="text-sm capitalize">
+                          {dish.name.toLowerCase()}
                         </li>
                       ))}
                     </ul>
@@ -77,7 +79,7 @@ export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
           ) : !loading ? (
             <>
               <Separator className="my-2" />
-              <p className="text-center text-sm">Aucun menu trouvé</p>
+              <p className="text-center text-sm">{t("no_menu_found")}</p>
             </>
           ) : (
             <>
