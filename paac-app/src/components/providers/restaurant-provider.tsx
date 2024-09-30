@@ -1,4 +1,5 @@
 import Restaurant from "@/models/restaurant";
+import { fetchRestaurants } from "@/services/api";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type RestaurantProviderProps = {
@@ -28,10 +29,7 @@ export function RestaurantProvider({
 
   useEffect(() => {
     const getRestaurants = async () => {
-      const response = await fetch("/api/restaurants/");
-      // const response = await fetch("http://127.0.0.1:8080/restaurants");
-      const data = (await response.json()) as Restaurant[];
-
+      const data = await fetchRestaurants();
       setRestaurants(data);
     };
 

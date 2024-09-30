@@ -33,7 +33,9 @@ func extractData(content string) Menu {
 
 		var dishes []Dish
 		for _, item := range items {
-			dishes = append(dishes, Dish{Name: item[1]})
+			if len(item) > 1 && item[1] != "" {
+				dishes = append(dishes, Dish{Name: item[1]})
+			}
 		}
 
 		menu.Categories = append(menu.Categories, MenuCategory{Name: categoryName, Dishes: dishes})

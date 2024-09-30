@@ -3,6 +3,8 @@ import { useStorage } from "@/components/providers/storage-provider";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Category, Dish, Menu } from "@/models/menu";
+import { fetchMenu } from "@/services/api";
+import { formatDate } from "@/utils/utils";
 import { useEffect, useState } from "react";
 
 export function MenuCard() {
@@ -13,16 +15,8 @@ export function MenuCard() {
   useEffect(() => {
     if (place) {
       async function getMenu() {
-        const date = new Date();
-        const response = await fetch(
-          `/api/menus/${place?.dataset}/${place?.id}?date=${formatDate(date)}`
-        );
-        // const response = await fetch(
-        //   `http://127.0.0.1:8080/menus/${place?.dataset}/${
-        //     place?.id
-        //   }?date=${formatDate(date)}`
-        // );
-        const data = await response.json();
+        if (!place) return;
+        const data = await fetchMenu(place.dataset, place.id);
         setMenu(data as Menu);
 
         setLoading(false);
@@ -33,18 +27,6 @@ export function MenuCard() {
       setMenu({} as Menu);
     }
   }, [place]);
-
-  function formatDate(date: Date) {
-    const d = new Date(date);
-    let month = "" + (d.getMonth() + 1);
-    let day = "" + d.getDate();
-    const year = d.getFullYear();
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return [year, month, day].join("-");
-  }
 
   return (
     <div className="border-2 border-foreground rounded p-5">
