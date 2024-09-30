@@ -13,7 +13,7 @@ import {
 import { Settings } from "lucide-react";
 
 export default function SettingsDialog() {
-  const { favorites, setFavorites } = useStorage();
+  const { places, setPlaces, favorites, setFavorites } = useStorage();
 
   return (
     <Dialog>
@@ -50,6 +50,22 @@ export default function SettingsDialog() {
                 disabled={!favorites?.length}
               >
                 Vider
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex justify-between py-2">
+            <div>
+              <h3 className="font-medium">Supprimer la sélection :</h3>
+              <p className="text-sm">Retirer tous les lieux selectionnés</p>
+            </div>
+            <div className="flex items-center">
+              <Button
+                variant="destructive"
+                onClick={() => setPlaces([])}
+                disabled={!places?.length}
+              >
+                Retirer
               </Button>
             </div>
           </div>

@@ -112,7 +112,7 @@ export default function PlaceSelector() {
                   .filter((r: Restaurant) => favorites.includes(r.id))
                   .map((restaurant: Restaurant) => (
                     <PlaceSelectorElement
-                      key={restaurant.id}
+                      key={"f-" + restaurant.id}
                       restaurant={restaurant}
                     />
                   ))}

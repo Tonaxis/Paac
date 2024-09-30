@@ -6,8 +6,10 @@ type StorageProviderProps = {
 };
 
 type StorageProviderState = {
-  place: Restaurant | null;
-  setPlace: (place: Restaurant) => void;
+  places: Restaurant[];
+  setPlaces: (places: Restaurant[]) => void;
+  addPlace: (place: Restaurant) => void;
+  removePlace: (place: Restaurant) => void;
 
   favorites: string[];
   setFavorites: (favorites: string[]) => void;
@@ -16,8 +18,10 @@ type StorageProviderState = {
 };
 
 const initialState: StorageProviderState = {
-  place: null,
-  setPlace: () => null,
+  places: [],
+  setPlaces: () => null,
+  addPlace: () => null,
+  removePlace: () => null,
 
   favorites: [],
   setFavorites: () => null,
@@ -29,21 +33,33 @@ const StorageProviderContext =
   createContext<StorageProviderState>(initialState);
 
 export function StorageProvider({ children, ...props }: StorageProviderProps) {
-  const [place, setPlace] = useState<Restaurant | null>(
+  const [places, setPlaces] = useState<Restaurant[]>(
     () =>
       JSON.parse(
-        localStorage.getItem("paac-selected-place") || "{}"
-      ) as Restaurant | null
+        localStorage.getItem("paac-selected-places") || "[]"
+      ) as Restaurant[]
   );
   const [favorites, setFavorites] = useState<string[]>(
     () => JSON.parse(localStorage.getItem("paac-favorites") || "[]") as string[]
   );
 
   const value = {
-    place: place,
-    setPlace: (place: Restaurant) => {
-      localStorage.setItem("paac-selected-place", JSON.stringify(place));
-      setPlace(place);
+    places: places,
+    setPlaces: (places: Restaurant[]) => {
+      localStorage.setItem("paac-selected-places", JSON.stringify(places));
+      setPlaces(places);
+    },
+    addPlace: (place: Restaurant) => {
+      if (!places.find((p) => p.id == place.id)) {
+        const newPlaces = [...places, place];
+        localStorage.setItem("paac-selected-places", JSON.stringify(newPlaces));
+        setPlaces(newPlaces);
+      }
+    },
+    removePlace: (place: Restaurant) => {
+      const newPlaces = places.filter((p) => p.id != place.id);
+      localStorage.setItem("paac-selected-places", JSON.stringify(newPlaces));
+      setPlaces(newPlaces);
     },
 
     favorites,

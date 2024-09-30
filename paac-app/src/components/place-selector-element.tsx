@@ -1,7 +1,7 @@
 import { useStorage } from "@/components/providers/storage-provider";
 import { cn } from "@/lib/utils";
 import Restaurant from "@/models/restaurant";
-import { Star } from "lucide-react";
+import { Check, Star } from "lucide-react";
 
 type PlaceSelectorElementProps = {
   restaurant: Restaurant;
@@ -10,11 +10,21 @@ type PlaceSelectorElementProps = {
 export default function PlaceSelectorElement({
   restaurant,
 }: PlaceSelectorElementProps) {
-  const { place, setPlace, favorites, addFavorite, removeFavorite } =
-    useStorage();
+  const {
+    places,
+    addPlace,
+    removePlace,
+    favorites,
+    addFavorite,
+    removeFavorite,
+  } = useStorage();
 
-  function selectPlace(restaurant: Restaurant) {
-    setPlace(restaurant);
+  function togglePlace(restaurant: Restaurant) {
+    if (places.includes(restaurant)) {
+      removePlace(restaurant);
+    } else {
+      addPlace(restaurant);
+    }
   }
 
   function toggleFavorite(id: string) {
@@ -28,12 +38,20 @@ export default function PlaceSelectorElement({
   return (
     <div
       className={cn(
-        "px-8 py-1 flex items-center cursor-pointer transition-colors rounded",
-        restaurant.id === place?.id && "bg-primary text-primary-foreground",
-        restaurant.id !== place?.id && "hover:bg-primary/20"
+        "px-8 py-1 flex items-center cursor-pointer transition-colors rounded"
+        // places.find((p: Restaurant) => p.id == restaurant.id) &&
+        //   "bg-primary text-primary-foreground",
+        // !places.find((p: Restaurant) => p.id == restaurant.id) &&
+        //   "hover:bg-primary/20"
       )}
     >
-      <div className="w-full" onClick={() => selectPlace(restaurant)}>
+      <div className="relative w-full" onClick={() => togglePlace(restaurant)}>
+        {places.find((p: Restaurant) => p.id == restaurant.id) && (
+          <Check
+            size={20}
+            className="absolute stroke-primary -left-1 top-1/2 -translate-x-full -translate-y-1/2"
+          />
+        )}
         {restaurant.title}
       </div>
 
