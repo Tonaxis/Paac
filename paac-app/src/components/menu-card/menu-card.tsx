@@ -1,12 +1,14 @@
 import "@/assets/css/global.css";
 import PlaceInfo from "@/components/place-info/place-info";
+import { useStorage } from "@/components/providers/storage-provider";
 import TypeIcon from "@/components/type-icon/type-icon";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Category, Dish, Menu } from "@/models/menu";
 import Restaurant from "@/models/restaurant";
 import { fetchMenu } from "@/services/api";
-import { GripVertical } from "lucide-react";
+import { GripVertical, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -16,6 +18,7 @@ type MenuCardProps = {
 };
 
 export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
+  const { removePlace } = useStorage();
   const { t } = useTranslation();
   const [menu, setMenu] = useState<Menu>();
   const [loading, setLoading] = useState(true);
@@ -39,6 +42,13 @@ export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
           <div className="flex gap-2 items-center font-medium">
             <TypeIcon name={restaurant.type} /> {restaurant.title}
           </div>
+          <Button
+            variant="ghost"
+            className="ml-auto"
+            onClick={() => removePlace(restaurant)}
+          >
+            <Trash className=" stroke-destructive" />
+          </Button>
         </div>
       ) : (
         <>
