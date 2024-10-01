@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">Suivi des menus du CROUS parc <a href="https://github.com/Tonaxis" target="_blank">@Tonaxis</a>.</h4>
+<h4 align="center">Suivi des menus du CROUS par <a href="https://github.com/Tonaxis" target="_blank">@Tonaxis</a>.</h4>
 
 <p align="center">
   <a href="https://github.com/Tonaxis/Paac/tags"><img src="https://img.shields.io/github/v/tag/tonaxis/paac"></a>
@@ -118,9 +118,7 @@ npm run dev
 
 ## Captures d'écran
 
-<img src="img/screenshot-mobile1.jpg" height="300" >
-<img src="img/screenshot-mobile2.jpg" height="300"/>
+<img src="img/screenshot-mobile1.jpg" height="300" ><img src="img/screenshot-mobile2.jpg" height="300"/>
 <br>
-<img src="img/screenshot-mobile3.jpg" height="300" />
-<img src="img/screenshot-mobile4.jpg" height="300"/>
+<img src="img/screenshot-mobile3.jpg" height="300" /><img src="img/screenshot-mobile4.jpg" height="300"/>
 <br>
