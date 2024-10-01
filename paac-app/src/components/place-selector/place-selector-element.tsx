@@ -20,7 +20,7 @@ export default function PlaceSelectorElement({
   } = useStorage();
 
   function togglePlace(restaurant: Restaurant) {
-    if (places.includes(restaurant)) {
+    if (places.find((p: Restaurant) => p.id == restaurant.id)) {
       removePlace(restaurant);
     } else {
       addPlace(restaurant);

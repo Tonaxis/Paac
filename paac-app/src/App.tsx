@@ -94,6 +94,7 @@ function App() {
                     key={place.id}
                     draggableId={place.id}
                     index={index}
+                    isDragDisabled={!dragging}
                   >
                     {(provided) => (
                       <div

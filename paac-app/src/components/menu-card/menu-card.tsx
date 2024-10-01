@@ -1,4 +1,5 @@
 import "@/assets/css/global.css";
+import PlaceInfo from "@/components/place-info/place-info";
 import TypeIcon from "@/components/type-icon/type-icon";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -41,17 +42,15 @@ export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
         </div>
       ) : (
         <>
-          <div className="flex gap-2 items-center font-medium">
-            <TypeIcon name={restaurant.type} /> {restaurant.title}
+          <div className="flex justify-between items-center">
+            <div className="flex gap-2 items-center font-medium">
+              <TypeIcon name={restaurant.type} /> {restaurant.title}
+            </div>
+            <PlaceInfo restaurant={restaurant} />
           </div>
           {menu && menu.date ? (
             <>
               <div className="flex justify-between items-center">
-                <p className="text-lg font-bold capitalize">
-                  {new Intl.DateTimeFormat("fr-FR", {
-                    dateStyle: "full",
-                  }).format(new Date(menu.date))}
-                </p>
                 <p className="text-center capitalize font-bold text-xl text-primary">
                   {menu?.moment}
                 </p>

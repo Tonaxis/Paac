@@ -1,10 +1,11 @@
 ::-webkit-scrollbar {
   background: transparent;
   width: 0.45rem;
+  height: 0.45rem;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground hover:bg-primary transition-colors;
+  @apply bg-border hover:bg-primary transition-colors;
   width: 100%;
   cursor: pointer;
   border-radius: 9999999px;

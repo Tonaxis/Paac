@@ -4,7 +4,7 @@ export default interface Restaurant {
   type: string;
   opening: string;
   closing: string;
-  shortDesc: string;
+  short_desc: string;
   lat: string;
   lon: string;
   zone: string;

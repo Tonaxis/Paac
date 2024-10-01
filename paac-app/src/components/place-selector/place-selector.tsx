@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import Restaurant from "@/models/restaurant";
-import { ChevronsUpDown, Store } from "lucide-react";
+import { ChevronsUpDown, Star, Store } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -101,27 +101,28 @@ export default function PlaceSelector() {
           placeholder={t("search")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
+          className="border-2 border-border rounded p-2 bg-border"
         />
         <div className="max-h-96 w-full overflow-auto divide-y-2">
           {favorites.length > 0 && (
-            <Collapsible className="w-full">
-              <CollapsibleTrigger className="w-full flex items-center justify-between space-x-4 px-4 py-2">
-                <h4 className="capitalize font-medium text-left">
+            <>
+              <div className="pb-5">
+                <h2 className="flex gap-2 mb-5">
+                  <Star className="fill-primary stroke-primary" />
                   {t("favorites")}
-                </h4>
-                <ChevronsUpDown />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="pb-2">
-                {filteredRestaurants
-                  .filter((r: Restaurant) => favorites.includes(r.id))
-                  .map((restaurant: Restaurant) => (
-                    <PlaceSelectorElement
-                      key={"f-" + restaurant.id}
-                      restaurant={restaurant}
-                    />
-                  ))}
-              </CollapsibleContent>
-            </Collapsible>
+                </h2>
+                <ul>
+                  {filteredRestaurants
+                    .filter((r: Restaurant) => favorites.includes(r.id))
+                    .map((restaurant: Restaurant) => (
+                      <PlaceSelectorElement
+                        key={"f-" + restaurant.id}
+                        restaurant={restaurant}
+                      />
+                    ))}
+                </ul>
+              </div>
+            </>
           )}
           {zones.map(({ zone, dataset }) => (
             <Collapsible key={zone} className="w-full">
