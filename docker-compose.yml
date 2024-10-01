@@ -1,0 +1,8 @@
+services:
+  app:
+    image: ghcr.io/tonaxis/paac/paac
+    restart: always
+    stdin_open: true
+    tty: true
+    ports:
+      - "80:80"
