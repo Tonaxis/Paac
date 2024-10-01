@@ -118,5 +118,5 @@ npm run dev
 
 ## Captures d'écran
 
-<img src="img/screenshot-mobile1.jpg" height="300" ><img src="img/screenshot-mobile2.jpg" height="300"/><img src="img/screenshot-mobile3.jpg" height="300" /><img src="img/screenshot-mobile4.jpg" height="300"/>
+<img src="img/screenshot-mobile1.jpg" height="400" ><img src="img/screenshot-mobile2.jpg" height="400"/><img src="img/screenshot-mobile3.jpg" height="400" /><img src="img/screenshot-mobile4.jpg" height="400"/>
 <br>
