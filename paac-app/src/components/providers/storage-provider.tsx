@@ -1,6 +1,10 @@
 import Restaurant from "@/models/restaurant";
 import { createContext, useContext, useState } from "react";
 
+type Settings = {
+  bkth?: boolean;
+};
+
 type StorageProviderProps = {
   children: React.ReactNode;
 };
@@ -15,6 +19,10 @@ type StorageProviderState = {
   setFavorites: (favorites: string[]) => void;
   addFavorite: (id: string) => void;
   removeFavorite: (id: string) => void;
+
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
+  setSetting: (key: keyof Settings, value: unknown) => void;
 };
 
 const initialState: StorageProviderState = {
@@ -27,6 +35,10 @@ const initialState: StorageProviderState = {
   setFavorites: () => null,
   addFavorite: () => null,
   removeFavorite: () => null,
+
+  settings: {},
+  setSettings: () => null,
+  setSetting: () => null,
 };
 
 const StorageProviderContext =
@@ -42,6 +54,14 @@ export function StorageProvider({ children, ...props }: StorageProviderProps) {
   const [favorites, setFavorites] = useState<string[]>(
     () => JSON.parse(localStorage.getItem("paac-favorites") || "[]") as string[]
   );
+
+  const [settings, setSettings] = useState<Settings>(() => {
+    const settings = localStorage.getItem("paac-settings");
+    if (settings) {
+      return JSON.parse(settings) as Settings;
+    }
+    return {};
+  });
 
   const value = {
     places: places,
@@ -76,6 +96,17 @@ export function StorageProvider({ children, ...props }: StorageProviderProps) {
       const newFavorites = favorites.filter((s) => s != id);
       localStorage.setItem("paac-favorites", JSON.stringify(newFavorites));
       setFavorites(newFavorites);
+    },
+
+    settings,
+    setSettings: (settings: Settings) => {
+      localStorage.setItem("paac-settings", JSON.stringify(settings));
+      setSettings(settings);
+    },
+    setSetting: (key: string, value: unknown) => {
+      const newSettings = { ...settings, [key]: value };
+      localStorage.setItem("paac-settings", JSON.stringify(newSettings));
+      setSettings(newSettings);
     },
   };
 

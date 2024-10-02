@@ -13,11 +13,16 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 type MenuCardProps = {
+  date: Date;
   restaurant: Restaurant;
   dragging?: boolean;
 };
 
-export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
+export function MenuCard({
+  date,
+  restaurant,
+  dragging = false,
+}: MenuCardProps) {
   const { removePlace } = useStorage();
   const { t } = useTranslation();
   const [menu, setMenu] = useState<Menu>();
@@ -25,14 +30,14 @@ export function MenuCard({ restaurant, dragging = false }: MenuCardProps) {
 
   useEffect(() => {
     async function getMenu() {
-      const data = await fetchMenu(restaurant.dataset, restaurant.id);
+      const data = await fetchMenu(restaurant.dataset, restaurant.id, date);
       setMenu(data as Menu);
 
       setLoading(false);
     }
 
     getMenu();
-  }, [restaurant]);
+  }, [restaurant, date]);
 
   return (
     <div className="max-w-xl w-full border-2 border-foreground rounded p-5">

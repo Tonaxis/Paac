@@ -13,7 +13,13 @@ import {
   Droppable,
   DropResult,
 } from "@hello-pangea/dnd";
-import { Pencil, PencilOff } from "lucide-react";
+import {
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Pencil,
+  PencilOff,
+} from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { version } from "../package.json";
@@ -22,6 +28,7 @@ function App() {
   const { t } = useTranslation();
   const { places, setPlaces } = useStorage();
   const [dragging, setDragging] = useState(false);
+  const [date, setDate] = useState<Date>(new Date());
 
   function onDragEnd(result: DropResult) {
     if (!result.destination) {
@@ -58,22 +65,65 @@ function App() {
           <p className="text-sm capitalize">
             {new Intl.DateTimeFormat("fr-FR", {
               dateStyle: "full",
-            }).format(new Date())}
+            }).format(date)}
           </p>
         </div>
         <Separator />
       </header>
-      <div className="p-2 flex justify-end gap-2">
-        <Button
-          size="sm"
-          variant="ghost"
-          className="p-0"
-          onClick={() => setDragging(!dragging)}
-        >
-          {dragging ? <PencilOff /> : <Pencil />}
-        </Button>
-        <PlaceSelector />
-        <SettingsDialog />
+      <div className="p-2 flex justify-between gap-2">
+        <div className="flex gap-2">
+          <Button
+            size="sm"
+            variant="ghost"
+            className="p-0"
+            onClick={() =>
+              setDate((prev) => {
+                const prevDate = new Date(new Date(prev).setHours(0, 0, 0, 0));
+                return new Date(prevDate.getTime() - 24 * 60 * 60 * 1000);
+              })
+            }
+          >
+            <ChevronLeft />
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="p-0"
+            onClick={() => setDate(new Date(new Date().setHours(0, 0, 0, 0)))}
+          >
+            <Calendar />
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="p-0"
+            onClick={() =>
+              setDate((prev) => {
+                const prevDate = new Date(prev);
+                prevDate.setMilliseconds(0);
+                prevDate.setSeconds(0);
+                prevDate.setMinutes(0);
+                prevDate.setHours(0);
+
+                return new Date(prevDate.getTime() + 24 * 60 * 60 * 1000);
+              })
+            }
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            variant="ghost"
+            className="p-0"
+            onClick={() => setDragging(!dragging)}
+          >
+            {dragging ? <PencilOff /> : <Pencil />}
+          </Button>
+          <PlaceSelector />
+          <SettingsDialog />
+        </div>
       </div>
 
       <main>
@@ -103,7 +153,11 @@ function App() {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <MenuCard restaurant={place} dragging={dragging} />
+                        <MenuCard
+                          date={date}
+                          restaurant={place}
+                          dragging={dragging}
+                        />
                       </div>
                     )}
                   </Draggable>
