@@ -12,6 +12,7 @@
   "light": "Clair",
   "dark": "Sombre",
   "system": "Système",
+  "blacker": "Blacker",
 
   "clear_favorites": "Vider les favoris",
   "clear_favorites_desc": "Supprimer tous les favoris",
@@ -27,6 +28,9 @@
   "select_your_places": "Sélectionner vos lieux de restaurations",
   "search": "Rechercher...",
   "favorites": "Favoris",
+
+  "auto_refresh": "Rafraichissement automatique",
+  "auto_refresh_desc": "Rafraichissement automatique des menus toutes les minutes",
 
   "opening_periods": "Périodes d'ouverture",
   "monday": "Lundi",

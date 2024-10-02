@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
 import i18n from "@/i18next";
 import { cn } from "@/lib/utils";
 import { changeLanguage } from "i18next";
@@ -18,7 +19,8 @@ import { useTranslation } from "react-i18next";
 
 export default function SettingsDialog() {
   const { t } = useTranslation();
-  const { places, setPlaces, favorites, setFavorites } = useStorage();
+  const { places, setPlaces, favorites, setFavorites, settings, setSetting } =
+    useStorage();
 
   return (
     <Dialog>
@@ -32,53 +34,36 @@ export default function SettingsDialog() {
           </DialogTitle>
         </DialogHeader>
         <DialogDescription></DialogDescription>
-        <div className="divide-y-2">
-          <div className="flex justify-between py-2">
-            <div>
+        <div className="relative divide-y-2">
+          <div className="flex justify-between py-4">
+            <div className="max-w-72">
               <h3 className="font-medium">{t("theme")} :</h3>
-              <p className="text-sm">{t("theme_desc")}</p>
+              <p className="text-xs font-thin">{t("theme_desc")}</p>
             </div>
             <div className="flex items-center">
               <ModeToggle />
             </div>
           </div>
 
-          <div className="flex justify-between py-2">
-            <div>
-              <h3 className="font-medium">{t("clear_favorites")} :</h3>
-              <p className="text-sm">{t("clear_favorites_desc")}</p>
+          <div className="flex justify-between py-4">
+            <div className="max-w-72">
+              <h3 className="font-medium">{t("auto_refresh")} :</h3>
+              <p className="text-xs font-thin">{t("auto_refresh_desc")}</p>
             </div>
             <div className="flex items-center">
-              <Button
-                variant="destructive"
-                onClick={() => setFavorites([])}
-                disabled={!favorites?.length}
-              >
-                {t("clear")}
-              </Button>
+              <Switch
+                onCheckedChange={(checked) =>
+                  setSetting("autoRefresh", checked)
+                }
+                checked={settings.autoRefresh}
+              />
             </div>
           </div>
 
-          <div className="flex justify-between py-2">
-            <div>
-              <h3 className="font-medium">{t("remove_selected_places")} :</h3>
-              <p className="text-sm">{t("remove_selected_places_desc")}</p>
-            </div>
-            <div className="flex items-center">
-              <Button
-                variant="destructive"
-                onClick={() => setPlaces([])}
-                disabled={!places?.length}
-              >
-                {t("remove")}
-              </Button>
-            </div>
-          </div>
-
-          <div className="flex justify-between py-2">
-            <div>
+          <div className="flex justify-between py-4">
+            <div className="max-w-72">
               <h3 className="font-medium">{t("language")} :</h3>
-              <p className="text-sm">{t("language_desc")}</p>
+              <p className="text-xs font-thin">{t("language_desc")}</p>
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -106,6 +91,40 @@ export default function SettingsDialog() {
                     i18n.language === "en" && "opacity-100 outline"
                   )}
                 />
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex justify-between py-4">
+            <div className="max-w-72">
+              <h3 className="font-medium">{t("clear_favorites")} :</h3>
+              <p className="text-xs font-thin">{t("clear_favorites_desc")}</p>
+            </div>
+            <div className="flex items-center">
+              <Button
+                variant="destructive"
+                onClick={() => setFavorites([])}
+                disabled={!favorites?.length}
+              >
+                {t("clear")}
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex justify-between py-4">
+            <div className="max-w-72">
+              <h3 className="font-medium">{t("remove_selected_places")} :</h3>
+              <p className="text-xs font-thin">
+                {t("remove_selected_places_desc")}
+              </p>
+            </div>
+            <div className="flex items-center">
+              <Button
+                variant="destructive"
+                onClick={() => setPlaces([])}
+                disabled={!places?.length}
+              >
+                {t("remove")}
               </Button>
             </div>
           </div>

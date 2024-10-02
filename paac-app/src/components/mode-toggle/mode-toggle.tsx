@@ -42,7 +42,7 @@ export function ModeToggle() {
           }
           value="light"
         >
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <Sun /> <p>{t("light")}</p>
           </div>
         </SelectItem>
@@ -52,7 +52,7 @@ export function ModeToggle() {
           }
           value="dark"
         >
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <Moon /> <p>{t("dark")}</p>
           </div>
         </SelectItem>
@@ -62,7 +62,7 @@ export function ModeToggle() {
           }
           value="system"
         >
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <Monitor /> <p>{t("system")}</p>
           </div>
         </SelectItem>
@@ -73,7 +73,7 @@ export function ModeToggle() {
             }
             value="blacker"
           >
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <MoonStar /> <p>{t("blacker")}</p>
             </div>
           </SelectItem>

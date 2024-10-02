@@ -12,6 +12,7 @@
   "light": "Light",
   "dark": "Dark",
   "system": "System",
+  "blacker": "Blacker",
 
   "clear_favorites": "Clear favorites",
   "clear_favorites_desc": "Remove all favorites",
@@ -27,6 +28,9 @@
   "select_your_places": "Select your favorite places",
   "search": "Search...",
   "favorites": "Favorites",
+
+  "auto_refresh": "Auto-refresh",
+  "auto_refresh_desc": "Automatically refresh the menu every minute",
 
   "opening_periods": "Opening periods",
 

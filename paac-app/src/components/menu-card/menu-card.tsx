@@ -23,21 +23,39 @@ export function MenuCard({
   restaurant,
   dragging = false,
 }: MenuCardProps) {
-  const { removePlace } = useStorage();
+  const { removePlace, settings } = useStorage();
   const { t } = useTranslation();
   const [menu, setMenu] = useState<Menu>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function getMenu() {
-      const data = await fetchMenu(restaurant.dataset, restaurant.id, date);
-      setMenu(data as Menu);
+    getMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restaurant, date]);
 
-      setLoading(false);
+  useEffect(() => {
+    let intervalId = null;
+    if (settings.autoRefresh) {
+      intervalId = setInterval(() => {
+        getMenu();
+      }, 60000);
     }
 
-    getMenu();
-  }, [restaurant, date]);
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.autoRefresh]);
+
+  async function getMenu() {
+    setLoading(true);
+    const data = await fetchMenu(restaurant.dataset, restaurant.id, date);
+    setMenu(data as Menu);
+
+    setLoading(false);
+  }
 
   return (
     <div className="max-w-xl w-full border-2 border-foreground rounded p-5">

@@ -101,7 +101,7 @@ export default function PlaceSelector() {
           placeholder={t("search")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border-2 border-border rounded p-2 bg-border"
+          className="border-2 border-border rounded p-2 ring-offset-input"
         />
         <div className="max-h-96 w-full overflow-auto divide-y-2">
           {favorites.length > 0 && (

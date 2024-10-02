@@ -1,7 +1,8 @@
 import Restaurant from "@/models/restaurant";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type Settings = {
+  autoRefresh?: boolean;
   bkth?: boolean;
 };
 
@@ -62,6 +63,12 @@ export function StorageProvider({ children, ...props }: StorageProviderProps) {
     }
     return {};
   });
+
+  useEffect(() => {
+    if (settings.autoRefresh === undefined) {
+      setSettings({ ...settings, autoRefresh: true });
+    }
+  }, []);
 
   const value = {
     places: places,
