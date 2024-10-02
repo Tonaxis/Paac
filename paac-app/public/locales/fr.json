@@ -26,5 +26,18 @@
 
   "select_your_places": "Sélectionner vos lieux de restaurations",
   "search": "Rechercher...",
-  "favorites": "Favoris"
+  "favorites": "Favoris",
+
+  "opening_periods": "Périodes d'ouverture",
+  "monday": "Lundi",
+  "tuesday": "Mardi",
+  "wednesday": "Mercredi",
+  "thursday": "Jeudi",
+  "friday": "Vendredi",
+  "saturday": "Samedi",
+  "sunday": "Dimanche",
+
+  "morning": "Matin",
+  "lunch": "Midi",
+  "dinner": "Soir"
 }
