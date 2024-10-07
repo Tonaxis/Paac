@@ -8,6 +8,10 @@ import App from "./App.tsx";
 import "./i18next.tsx";
 import "./index.css";
 
+import { registerSW } from "virtual:pwa-register";
+
+registerSW({ immediate: true });
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
