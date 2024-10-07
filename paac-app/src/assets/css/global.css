@@ -25,3 +25,36 @@
 .leaflet-bar a {
   @apply bg-background text-foreground !important;
 }
+
+.loading-spinner {
+  @apply relative size-4 animate-spin;
+}
+
+.loading-spinner::after {
+  @apply content-[""] absolute size-4 rounded-full border-2 border-foreground;
+  clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 50%, 50% 50%, 50% 0);
+  animation: loading-spinner 1s linear infinite alternate;
+}
+
+@keyframes loading-spinner {
+  0% {
+    clip-path: polygon(
+      -100% -100%,
+      -100% 100%,
+      200% 200%,
+      200% 50%,
+      50% 50%,
+      50% -100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      -100% 50%,
+      -100% 200%,
+      25% 200%,
+      50% 200%,
+      50% 50%,
+      -100% 50%
+    );
+  }
+}

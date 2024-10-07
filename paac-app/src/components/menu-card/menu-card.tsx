@@ -27,6 +27,7 @@ export function MenuCard({
   const { t } = useTranslation();
   const [menu, setMenu] = useState<Menu>();
   const [loading, setLoading] = useState(true);
+  const [silentLoading, setSilentLoading] = useState(false);
 
   useEffect(() => {
     getMenu();
@@ -37,8 +38,10 @@ export function MenuCard({
     let intervalId = null;
     if (settings.autoRefresh) {
       intervalId = setInterval(() => {
-        getMenu();
-      }, 60000);
+        if (!loading && !silentLoading) {
+          getMenu(true);
+        }
+      }, 1000 * Math.max(settings.refreshInterval || 60, 1));
     }
 
     return () => {
@@ -49,12 +52,15 @@ export function MenuCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings.autoRefresh]);
 
-  async function getMenu() {
-    setLoading(true);
+  async function getMenu(silentLoading = false) {
+    if (!silentLoading) setLoading(true);
+    else setSilentLoading(true);
+
     const data = await fetchMenu(restaurant.dataset, restaurant.id, date);
     setMenu(data as Menu);
 
-    setLoading(false);
+    if (!silentLoading) setLoading(false);
+    else setSilentLoading(false);
   }
 
   return (
@@ -78,6 +84,7 @@ export function MenuCard({
           <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center font-medium">
               <TypeIcon name={restaurant.type} /> {restaurant.title}
+              {silentLoading && <div className="loading-spinner" />}
             </div>
             <PlaceInfo restaurant={restaurant} />
           </div>

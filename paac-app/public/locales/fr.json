@@ -32,6 +32,9 @@
   "auto_refresh": "Rafraichissement automatique",
   "auto_refresh_desc": "Rafraichissement automatique des menus toutes les minutes",
 
+  "auto_refresh_interval": "Intervalle de rafraichissement",
+  "auto_refresh_interval_desc": "Intervalle de rafraichissement en secondes",
+
   "opening_periods": "Périodes d'ouverture",
   "monday": "Lundi",
   "tuesday": "Mardi",

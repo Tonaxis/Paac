@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type Settings = {
   autoRefresh?: boolean;
+  refreshInterval?: number;
   bkth?: boolean;
 };
 
@@ -66,7 +67,7 @@ export function StorageProvider({ children, ...props }: StorageProviderProps) {
 
   useEffect(() => {
     if (settings.autoRefresh === undefined) {
-      setSettings({ ...settings, autoRefresh: true });
+      setSettings({ ...settings, autoRefresh: true, refreshInterval: 60 });
     }
   }, []);
 

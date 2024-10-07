@@ -9,6 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import i18n from "@/i18next";
 import { cn } from "@/lib/utils";
@@ -56,6 +58,45 @@ export default function SettingsDialog() {
                   setSetting("autoRefresh", checked)
                 }
                 checked={settings.autoRefresh}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <div className="flex justify-between py-4">
+              <div className="max-w-72">
+                <h3 className="font-medium">{t("auto_refresh_interval")} :</h3>
+                <p className="text-xs font-thin">
+                  {t("auto_refresh_interval_desc")}
+                </p>
+              </div>
+              <div className="flex items-center">
+                <Input
+                  type="number"
+                  className="w-24"
+                  defaultValue={settings.refreshInterval || 60}
+                  onInput={(interval) =>
+                    setSetting(
+                      "refreshInterval",
+                      Math.max(
+                        1,
+                        Math.min(300, interval.currentTarget.valueAsNumber)
+                      )
+                    )
+                  }
+                  value={settings.refreshInterval || 60}
+                />
+              </div>
+            </div>
+            <div className="flex items-center">
+              <Slider
+                onValueChange={(interval) =>
+                  setSetting("refreshInterval", interval)
+                }
+                defaultValue={[settings.refreshInterval || 60]}
+                min={1}
+                max={300}
+                step={1}
               />
             </div>
           </div>

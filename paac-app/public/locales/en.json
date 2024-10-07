@@ -32,6 +32,9 @@
   "auto_refresh": "Auto-refresh",
   "auto_refresh_desc": "Automatically refresh the menu every minute",
 
+  "auto_refresh_interval": "Auto-refresh interval",
+  "auto_refresh_interval_desc": "Refresh interval in secondes",
+
   "opening_periods": "Opening periods",
 
   "monday": "Monday",
