@@ -22,8 +22,6 @@ import Restaurant from "@/models/restaurant";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Check, Info, MapPin, X } from "lucide-react";
-import "lucide-static/font/lucide.css";
-import arrowRightIcon from "lucide-static/icons/arrow-right.svg";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
@@ -178,9 +176,6 @@ export default function PlaceInfo({ restaurant }: PlaceInfoProps) {
               </TableBody>
             </Table>
           </div>
-          <svg width="24" height="24" fill="none" stroke="red">
-            <use href={arrowRightIcon} />
-          </svg>
           <div className="overflow-hidden h-80 w-full">
             <MapContainer
               center={[

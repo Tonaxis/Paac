@@ -30,7 +30,6 @@
     "i18next-http-backend": "^2.6.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.441.0",
-    "lucide-static": "^0.447.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.2",
