@@ -19,3 +19,9 @@
 .no-checkmark[role="option"] > span > span > svg {
   display: none;
 }
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip,
+.leaflet-bar a {
+  @apply bg-background text-foreground !important;
+}
