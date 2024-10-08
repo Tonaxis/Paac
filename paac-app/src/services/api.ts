@@ -11,10 +11,13 @@ export async function fetchRestaurants() {
 export async function fetchMenu(
   dataset: string,
   id: string,
-  date: Date = new Date()
+  date: Date = new Date(),
+  moment: string = ""
 ) {
   const response = await fetch(
-    `${BASE_URL}/menus/${dataset}/${id}?date=${formatDate(date)}`
+    `${BASE_URL}/menus/${dataset}/${id}?date=${formatDate(date)}${
+      moment && `&moment=${moment}`
+    }`
   );
   const data = await response.json();
   return data;

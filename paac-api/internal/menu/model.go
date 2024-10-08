@@ -13,10 +13,11 @@ type MenuCategory struct {
 
 // Struct to represent menu information
 type Menu struct {
-	RestaurantID string         `json:"restaurant_id"`
-	Date         string         `json:"date"`
-	Moment       string         `json:"moment"`
-	Categories   []MenuCategory `json:"categories"`
+	RestaurantID      string         `json:"restaurant_id"`
+	Date              string         `json:"date"`
+	AvailablesMoments []string       `json:"availables_moments"`
+	Moment            string         `json:"moment"`
+	Categories        []MenuCategory `json:"categories"`
 }
 
 // Struct to represent XML menu data (used for parsing)

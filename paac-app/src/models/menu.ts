@@ -1,6 +1,7 @@
 export interface Menu {
   resto_id: string;
   date: string;
+  availables_moments: string[];
   moment: "matin" | "midi" | "soir";
   categories: Category[];
 }

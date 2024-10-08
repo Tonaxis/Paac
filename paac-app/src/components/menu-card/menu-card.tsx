@@ -5,6 +5,7 @@ import TypeIcon from "@/components/type-icon/type-icon";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 import { Category, Dish, Menu } from "@/models/menu";
 import Restaurant from "@/models/restaurant";
 import { fetchMenu } from "@/services/api";
@@ -26,13 +27,14 @@ export function MenuCard({
   const { removePlace, settings } = useStorage();
   const { t } = useTranslation();
   const [menu, setMenu] = useState<Menu>();
+  const [moment, setMoment] = useState("");
   const [loading, setLoading] = useState(true);
   const [silentLoading, setSilentLoading] = useState(false);
 
   useEffect(() => {
     getMenu();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restaurant, date]);
+  }, [restaurant, date, moment]);
 
   useEffect(() => {
     let intervalId = null;
@@ -56,7 +58,12 @@ export function MenuCard({
     if (!silentLoading) setLoading(true);
     else setSilentLoading(true);
 
-    const data = await fetchMenu(restaurant.dataset, restaurant.id, date);
+    const data = await fetchMenu(
+      restaurant.dataset,
+      restaurant.id,
+      date,
+      moment
+    );
     setMenu(data as Menu);
 
     if (!silentLoading) setLoading(false);
@@ -91,9 +98,21 @@ export function MenuCard({
           {menu && menu.date ? (
             <>
               <div className="flex justify-between items-center">
-                <p className="text-center capitalize font-bold text-xl text-primary">
-                  {menu?.moment}
-                </p>
+                {menu.availables_moments.map((moment: string) => (
+                  <Button
+                    key={moment}
+                    variant="ghost"
+                    className={cn(
+                      "capitalize font-bold text-xl p-0 h-fit mt-1",
+                      menu.moment === moment
+                        ? "text-primary"
+                        : "text-muted-foreground"
+                    )}
+                    onClick={() => setMoment(moment)}
+                  >
+                    {moment}
+                  </Button>
+                ))}
               </div>
               <Separator className="mt-2" />
               <div>

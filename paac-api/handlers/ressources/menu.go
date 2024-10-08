@@ -13,8 +13,9 @@ func GetMenu(c *fiber.Ctx) error {
 	dataset := c.Params("dataset")
 	id := c.Params("id")
 	date := c.Query("date", "")
+	moment := c.Query("moment", "")
 
-	menu, err := menuRes.GetMenu(dataset, id, date)
+	menu, err := menuRes.GetMenu(dataset, id, date, moment)
 	if err != nil {
 		return utils.Response(c, http.StatusInternalServerError, err.Error(), fiber.Map{
 			"message": "Internal server error",
