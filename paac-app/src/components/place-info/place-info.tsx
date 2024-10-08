@@ -1,4 +1,4 @@
-import Map from "@/components/map/Map";
+import Map from "@/components/map/map";
 import MapMarker from "@/components/map/map-marker";
 import TypeIcon from "@/components/type-icon/type-icon";
 import {

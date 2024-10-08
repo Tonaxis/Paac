@@ -21,7 +21,7 @@ import { Check, ChevronsUpDown, Star, Store } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Map from "@/components/map/Map";
+import Map from "@/components/map/map";
 import MapMarker from "@/components/map/map-marker";
 import MapMarkerUser from "@/components/map/map-marker-user";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
