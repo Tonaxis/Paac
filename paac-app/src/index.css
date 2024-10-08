@@ -55,6 +55,8 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --map-filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(100%)
+      saturate(120%);
   }
   .blacker {
     --background: 0 0% 0%;
@@ -81,6 +83,8 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --map-filter: invert(100%) hue-rotate(190deg) brightness(90%) saturate(350%)
+      contrast(150%);
   }
 }
 

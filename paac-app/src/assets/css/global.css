@@ -26,6 +26,10 @@
   @apply bg-background text-foreground !important;
 }
 
+.map-layer {
+  filter: var(--map-filter);
+}
+
 .loading-spinner {
   @apply relative size-4 animate-spin;
 }

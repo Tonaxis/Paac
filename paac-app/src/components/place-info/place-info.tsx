@@ -1,4 +1,5 @@
-import getIcon from "@/components/type-icon/icons";
+import Map from "@/components/map/Map";
+import MapMarker from "@/components/map/map-marker";
 import TypeIcon from "@/components/type-icon/type-icon";
 import {
   Dialog,
@@ -19,12 +20,8 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import Restaurant from "@/models/restaurant";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import { Check, Info, MapPin, X } from "lucide-react";
-import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 type PlaceInfoProps = {
   restaurant: Restaurant;
@@ -32,8 +29,6 @@ type PlaceInfoProps = {
 
 export default function PlaceInfo({ restaurant }: PlaceInfoProps) {
   const { t } = useTranslation();
-
-  const mapRef = useRef(null);
 
   return (
     <Dialog>
@@ -126,6 +121,7 @@ export default function PlaceInfo({ restaurant }: PlaceInfoProps) {
                   <TableCell className="max-w-20">{t("morning")}</TableCell>
                   {restaurant.opening.split(",").map((day, index) => (
                     <TableCell
+                      key={index}
                       className={cn(
                         new Date().getUTCDay() - 1 === index &&
                           "bg-foreground/10"
@@ -143,6 +139,7 @@ export default function PlaceInfo({ restaurant }: PlaceInfoProps) {
                   <TableCell className="max-w-20">{t("lunch")}</TableCell>
                   {restaurant.opening.split(",").map((day, index) => (
                     <TableCell
+                      key={index}
                       className={cn(
                         new Date().getUTCDay() - 1 === index &&
                           "bg-foreground/10"
@@ -160,6 +157,7 @@ export default function PlaceInfo({ restaurant }: PlaceInfoProps) {
                   <TableCell className="max-w-20">{t("dinner")}</TableCell>
                   {restaurant.opening.split(",").map((day, index) => (
                     <TableCell
+                      key={index}
                       className={cn(
                         new Date().getUTCDay() - 1 === index &&
                           "bg-foreground/10"
@@ -177,56 +175,22 @@ export default function PlaceInfo({ restaurant }: PlaceInfoProps) {
             </Table>
           </div>
           <div className="overflow-hidden h-80 w-full">
-            <MapContainer
-              center={[
-                parseFloat(restaurant.lat) || 0,
-                parseFloat(restaurant.lon) || 0,
-              ]}
-              zoom={16}
-              ref={mapRef}
-              className="w-full h-full"
+            <Map
+              position={{
+                lat: parseFloat(restaurant.lat),
+                lon: parseFloat(restaurant.lon),
+              }}
             >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <Marker
-                position={[
-                  parseFloat(restaurant.lat),
-                  parseFloat(restaurant.lon),
-                ]}
-                icon={L.divIcon({
-                  html: `
-                  <div class="relative">
-                    <svg
-                      width="32.8"
-                      height="40"
-                      viewBox="0 0 82 100"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        class="fill-primary"
-                        d="M82 41.25C82 64.0317 67.0909 88.75 41 100C14.9091 88.75 0 64.0317 0 41.25C0 18.4683 18.3563 0 41 0C63.6437 0 82 18.4683 82 41.25Z"
-                      />
-                      </svg>
-                        <div class="absolute top-[6.4px] left-[6.4px] font-medium z-50">
-                          <img class="size-5 stroke-primary-foreground event-none" src="${
-                            getIcon(restaurant.type).staticUri
-                          }" alt="" type="image/svg+xml" />
-                        </div>
-                      </div>
-                  `,
-                  iconSize: [32.8, 40],
-                  iconAnchor: [16.4, 40],
-                  className: "bg-transparent",
-                  popupAnchor: [0, -40],
-                })}
+              <MapMarker
+                restaurant={restaurant}
+                position={{
+                  lat: parseFloat(restaurant.lat),
+                  lon: parseFloat(restaurant.lon),
+                }}
               >
-                <Popup autoClose={true}>
-                  <p className="flex gap-2 items-center font-medium">
-                    {restaurant.title}
-                  </p>
-                </Popup>
-              </Marker>
-            </MapContainer>
+                <p>{restaurant.title}</p>
+              </MapMarker>
+            </Map>
           </div>
         </div>
       </DialogContent>

@@ -1,3 +1,4 @@
+import { Capacitor } from "@capacitor/core";
 import { Keyboard } from "@capacitor/keyboard";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
@@ -36,16 +37,19 @@ const DialogContent = React.forwardRef<
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   useEffect(() => {
-    const showKeyboard = () => setIsKeyboardOpen(true);
-    const hideKeyboard = () => setIsKeyboardOpen(false);
+    if (Capacitor.isNativePlatform()) {
+      const showKeyboard = () => setIsKeyboardOpen(true);
+      const hideKeyboard = () => setIsKeyboardOpen(false);
 
-    Keyboard.addListener("keyboardWillShow", showKeyboard);
-    Keyboard.addListener("keyboardWillHide", hideKeyboard);
+      Keyboard.addListener("keyboardWillShow", showKeyboard);
+      Keyboard.addListener("keyboardWillHide", hideKeyboard);
 
-    return () => {
-      Keyboard.removeAllListeners();
-    };
+      return () => {
+        Keyboard.removeAllListeners();
+      };
+    }
   }, []);
+
   return (
     <DialogPortal>
       <DialogOverlay />
