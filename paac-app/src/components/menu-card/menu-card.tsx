@@ -119,7 +119,7 @@ export function MenuCard({
                 {menu?.categories?.map((category: Category) => (
                   <div key={category.name} className="mt-4">
                     <div>
-                      <h2 className="uppercase font-medium text-primary underline">
+                      <h2 className="uppercase font-bold text-primary">
                         {category.name}
                       </h2>
                     </div>
